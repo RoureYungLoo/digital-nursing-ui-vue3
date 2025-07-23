@@ -135,7 +135,6 @@
       </div>
     </el-dialog>
   </div>
-  >
 </template>
 
 <script setup name="Plan">
