@@ -122,7 +122,7 @@ import {
 const formRef = ref()
 import {
     getToken
-} from '@/utils/auth'
+} from '@/utils/auth.js'
 
 const headers = {
     Authorization: 'Bearer ' + getToken()

@@ -89,8 +89,8 @@
     </div>
 </template>
 <script setup>
-import { getAllLevels } from '@/api/serve/level'
-import { getFloorBed, getRootById } from '@/api/nursing/floor'
+import { getAllLevels } from '@/api/serve/level.js'
+import { getFloorBed, getRootById } from '@/api/nursing/floor.js'
 import {
     ElMessage
 }

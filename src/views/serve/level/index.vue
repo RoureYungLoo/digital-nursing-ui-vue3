@@ -2,16 +2,13 @@
   <div class="app-container">
     <el-form :model="queryParams" ref="queryRef" :inline="true" v-show="showSearch" label-width="68px">
       <el-form-item label="等级名称" prop="name">
-        <el-input style="width: 200px"
-                  v-model="queryParams.name"
-                  placeholder="请输入等级名称"
-                  clearable
-                  @keyup.enter="handleQuery"
-        />
+        <el-input style="width: 200px" v-model="queryParams.name" placeholder="请输入等级名称" clearable
+                  @keyup.enter="handleQuery"/>
       </el-form-item>
       <el-form-item label="护理等级">
-        <el-select v-model="queryParams.status">
-          <el-option style="width: 200px" v-for="{label,value} in nursing_level_status" :label="label" :value="value"/>
+        <el-select v-model="queryParams.status" clearable>
+          <el-option style="width: 200px" v-for="{label,value} in nursing_level_status" :label="label"
+                     :value="Number(value)"/>
         </el-select>
       </el-form-item>
       <el-form-item>
@@ -22,14 +19,7 @@
 
     <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
-        <el-button
-            type="primary"
-            plain
-            icon="Plus"
-            @click="handleAdd"
-            v-hasPermi="['serve:level:add']"
-        >新增
-        </el-button>
+        <el-button type="primary" plain icon="Plus" @click="handleAdd" v-hasPermi="['serve:level:add']">新增</el-button>
       </el-col>
       <!-- <el-col :span="1.5">
         <el-button
@@ -77,6 +67,7 @@
           </el-tag>
         </template>
       </el-table-column>
+      <el-table-column label="等级说明" align="center" prop="description"/>
       <el-table-column label="创建时间" align="center" prop="createTime" width="180">
         <template #default="scope">
           <span>{{ parseTime(scope.row.createTime, '{y}-{m}-{d} {h}:{i}:{s}') }}</span>
@@ -107,7 +98,7 @@
     />
 
     <!-- 添加或修改护理等级对话框 -->
-    <el-dialog :title="title" v-model="open" width="500px" append-to-body>
+    <el-dialog :title="title" v-model="open" width="500px" append-to-body :align-center="true">
       <el-form ref="levelRef" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="等级名称" prop="name">
           <el-input v-model="form.name" placeholder="请输入等级名称"/>
@@ -136,7 +127,7 @@
           </el-radio-group>
         </el-form-item>
         <el-form-item label="等级说明" prop="description">
-          <el-input v-model="form.description" placeholder="请输入等级说明"/>
+          <el-input type="textarea" rows="5" v-model="form.description" placeholder="请输入等级说明"/>
         </el-form-item>
       </el-form>
       <template #footer>

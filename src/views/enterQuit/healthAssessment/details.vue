@@ -149,7 +149,7 @@
 </template>
 <script setup>
 // 接口
-import { getHealthAssessment } from '@/api/nursing/healthAssessment';
+import { getHealthAssessment } from '@/api/nursing/healthAssessment.js';
 // 组件
 // 不同年龄人群健康指数分布
 import AgeDistribution from './components/AgeDistribution.vue';

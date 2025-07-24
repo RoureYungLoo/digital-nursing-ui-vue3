@@ -1,15 +1,12 @@
 <template>
   <div class="app-container">
-    <el-form
-        :model="queryParams" ref="queryRef" :inline="true" v-show="showSearch" label-width="68px">
+    <el-form :model="queryParams" ref="queryRef" :inline="true" v-show="showSearch" label-width="68px">
       <el-form-item label="名称" prop="planName">
         <el-input v-model="queryParams.planName" placeholder="请输入名称" clearable @keyup.enter="handleQuery"/>
       </el-form-item>
       <el-form-item label="状态" prop="status">
         <el-select v-model="queryParams.status" placeholder="请选择状态" clearable>
-          <el-option v-for="{label,value} in nursing_plan_status" :key="value" :label="Number(value)"
-                     :value="Number(value)">{{ label }}
-          </el-option>
+          <el-option v-for="{label,value} in nursing_plan_status" :key="value" :label="label" :value="Number(value)"/>
         </el-select>
       </el-form-item>
       <el-form-item>
@@ -49,8 +46,8 @@
           </el-button>
           <el-button link type="primary" icon="Delete" @click="handleLook(scope.row)">查看
           </el-button>
-          <el-button link type="primary" :icon="scope.row.status === 1 ? 'Check' : 'Close'"
-                     @click="handleEnable(scope.row)">{{ scope.row.status === 1 ? '启用' : '禁用' }}
+          <el-button link type="primary" :icon="scope.row.status === 0 ? 'Check' : 'Close'"
+                     @click="handleEnable(scope.row)">{{ scope.row.status === 0 ? '启用' : '禁用' }}
           </el-button>
         </template>
       </el-table-column>
@@ -74,7 +71,6 @@
                 </el-radio>
               </el-radio-group>
             </el-form-item>
-            {{ formData.status }}|{{ typeof formData.status }}
             <el-form-item label="排序：" prop="sortNo">
               <el-input-number :disabled="isLook" v-model="formData.sortNo" :min="0" large-number :max="999999"
                                :decimal-places="0" @blur="textBlurNo" @change="textBlurNo"></el-input-number>
@@ -95,9 +91,8 @@
               <div class="tableColumn" v-for="(item, index) in formData.nursingPlanList" :key="index">
                 <div class="column">
                   <el-select :disabled="isLook" v-model="item.projectId" placeholder="请选择">
-                    <el-option v-for="{label,value} in nursingProjectOptions" :key="item.value" :label="value"
-                               :value="value">{{ label }}
-                    </el-option>
+                    <el-option v-for="{label,value} in nursingProjectOptions" :key="item.value" :label="label"
+                               :value="value"/>
                   </el-select>
                 </div>
                 <div class="column">
@@ -107,13 +102,12 @@
                 </div>
                 <div class="column">
                   <el-select v-model="item.executeCycle" placeholder="请选择" :disabled="isLook">
-                    <el-option v-for="{label,value} in executeCycleOptions" :key="item.value" :label="value"
-                               :value="value">{{ label }}
-                    </el-option>
+                    <el-option v-for="{label,value} in executeCycleOptions" :key="item.value" :label="label"
+                               :value="value"/>
                   </el-select>
                 </div>
                 <div class="column">
-                  <el-input-number v-model="item.executeFrequency" :controls="false" :max="7" :min="1"
+                  <el-input-number v-model="item.executeFrequency" :controls="true" :max="7" :min="1"
                                    :disabled="isLook"/>
                 </div>
                 <div class="column" v-if="!isLook">
@@ -137,7 +131,7 @@
   </div>
 </template>
 
-<script setup name="Plan">
+<script setup>
 import {
   listNursingPlan,
   getNursingPlan,
@@ -153,7 +147,7 @@ import {Minus, Plus} from "@element-plus/icons-vue";
 const {proxy} = getCurrentInstance();
 const {nursing_plan_status} = proxy.useDict('nursing_plan_status')
 console.log("nursing_plan_status", nursing_plan_status)
-const queryRef = ref(); // 表单
+const queryRef = ref(null);
 const planList = ref([]);
 const open = ref(false);
 const loading = ref(true);
@@ -180,7 +174,6 @@ const formData = ref({
     executeFrequency: null,
   }]
 });
-// const planRef = ref({})
 
 const queryParams = ref({
   pageNum: 1,
@@ -230,15 +223,15 @@ const getAllProjectList = () => {
   });
 };
 
-
 const handleRowAdd = () => {
-  const obj = {
-    projectId: '',
-    executeTime: '',
-    executeCycle: '',
-    executeFrequency: '',
-  };
-  formData.value.nursingPlanList.push(obj);
+  formData.value.nursingPlanList.push({
+    id: null,
+    planId: null,
+    projectId: null,
+    executeTime: null,
+    executeCycle: null,
+    executeFrequency: null,
+  });
 };
 //删除行数据
 const handleRowDel = (item, index) => {

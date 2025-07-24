@@ -59,7 +59,7 @@ import {
     from 'element-plus'
 const formRef = ref()
 
-import { getToken } from '@/utils/auth';
+import { getToken } from '@/utils/auth.js';
 
 const headers = {
     Authorization: 'Bearer ' + getToken(),

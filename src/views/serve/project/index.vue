@@ -9,7 +9,8 @@
 
       <el-form-item label="状态" prop="status">
         <el-select v-model="queryParams.status" clearable placeholder="请选择" style="width: 200px">
-          <el-option v-for="item in nursing_project_status" :key="item.value" :label="item.label" :value="item.value"/>
+          <el-option v-for="{label,value} in nursing_project_status" :key="value" :label="label"
+                     :value="Number(value)"/>
         </el-select>
       </el-form-item>
 
@@ -25,19 +26,22 @@
         <el-button type="primary" plain icon="Plus" @click="handleAdd" v-hasPermi="['serve:project:add']">新增
         </el-button>
       </el-col>
-      <!-- <el-col :span="1.5">
+      <el-col :span="1.5">
         <el-button type="success" plain icon="Edit" :disabled="single" @click="handleUpdate"
-          v-hasPermi="['serve:project:edit']">修改</el-button>
+                   v-hasPermi="['serve:project:edit']">修改
+        </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button type="danger" plain icon="Delete" :disabled="multiple" @click="handleDelete"
-          v-hasPermi="['serve:project:remove']">删除</el-button>
+                   v-hasPermi="['serve:project:remove']">删除
+        </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button type="warning" plain icon="Download" @click="handleExport"
-          v-hasPermi="['serve:project:export']">导出</el-button>
+                   v-hasPermi="['serve:project:export']">导出
+        </el-button>
       </el-col>
-      <right-toolbar v-model:showSearch="showSearch" @queryTable="getList"></right-toolbar> -->
+      <right-toolbar v-model:showSearch="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
     <!-- 表格 -->
@@ -103,8 +107,9 @@
         </el-form-item>
         <el-form-item label="状态" prop="status">
           <el-radio-group v-model="form.status">
-            <el-radio v-for="(item) in nursing_project_status" :key="item.value" :label="item.value" size="large">
-              {{ item.label }}
+            <el-radio v-for="{label,value} in nursing_project_status" :key="value" :label="value" :value="value"
+                      size="large">
+              {{ label }}
             </el-radio>
           </el-radio-group>
         </el-form-item>
@@ -133,7 +138,6 @@ const {proxy} = getCurrentInstance();
 
 // 使用字典
 const {nursing_project_status} = proxy.useDict(["nursing_project_status"]);
-
 const projectList = ref([]);
 const open = ref(false);
 const loading = ref(true);

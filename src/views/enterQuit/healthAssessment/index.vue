@@ -224,9 +224,9 @@ import {
   delHealthAssessment,
   addHealthAssessment,
   updateHealthAssessment,
-} from '@/api/nursing/healthAssessment';
-import { getToken } from '@/utils/auth';
-import { isCardID } from '@/utils/validate';
+} from '@/api/nursing/healthAssessment.js';
+import { getToken } from '@/utils/auth.js';
+import { isCardID } from '@/utils/validate.js';
 const { proxy } = getCurrentInstance();
 const { admission_status } = proxy.useDict('admission_status');
 
@@ -401,7 +401,7 @@ function submitForm() {
 getList();
 </script>
 <style lang="scss" scoped>
-@import '@/assets/styles/variables.module.scss';
+@import '@/assets/styles/variables.module';
 .update {
   position: absolute;
   width: 100%;

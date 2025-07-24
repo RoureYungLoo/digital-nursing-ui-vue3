@@ -32,9 +32,10 @@ import Family from './components/Family.vue'
 import ConfigurationForm from './components/ConfigurationForm.vue'
 import TransactForm from './components/TransactForm.vue'
 
-import { applyCheckIn ,getCheckInInfo } from '@/api/nursing/checkIn';
+import { applyCheckIn ,getCheckInInfo } from '@/api/nursing/checkIn.js';
 
 import { ElMessage } from 'element-plus'
+import {useRoute, useRouter} from "vue-router";
 //表单数据
 const formData = ref({})
 //表单验证

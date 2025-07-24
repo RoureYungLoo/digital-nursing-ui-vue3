@@ -2,7 +2,7 @@
   <div class="app-container">
     <el-form :model="queryParams" ref="queryRef" :inline="true" v-show="showSearch" label-width="68px">
       <el-form-item label="老人姓名" prop="elderName">
-        <el-input
+        <el-input style="width: 200px"
           v-model="queryParams.elderName"
           placeholder="请输入老人姓名"
           clearable
@@ -10,7 +10,7 @@
         />
       </el-form-item>
       <el-form-item label="身份证号" prop="idCardNo">
-        <el-input
+        <el-input style="width: 200px"
           v-model="queryParams.idCardNo"
           placeholder="请输入身份证号"
           clearable
@@ -76,7 +76,8 @@
 </template>
 
 <script setup name="CheckIn">
-import { listCheckIn  } from "@/api/nursing/checkIn";
+import { listCheckIn  } from "@/api/nursing/checkIn.js";
+import {useRoute} from "vue-router";
 
 const { proxy } = getCurrentInstance();
 
