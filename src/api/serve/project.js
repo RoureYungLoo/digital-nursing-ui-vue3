@@ -50,3 +50,11 @@ export function getAllProjects() {
     method: 'get'
   })
 }
+
+//查询所有护理项目
+export function getProjectAll() {
+  return request({
+    url: '/serve/project/all',
+    method: 'get'
+  })
+}
