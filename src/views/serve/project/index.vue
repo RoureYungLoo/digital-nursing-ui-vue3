@@ -88,7 +88,7 @@
 
     <!-- 分页条 -->
     <pagination v-show="total>0" :total="total" v-model:page="queryParams.pageNum" v-model:limit="queryParams.pageSize"
-                @pagination="getList"/>
+               :page-sizes="[5,10,15,20]" @pagination="getList"/>
 
     <!-- 添加或修改护理项目对话框 -->
     <el-dialog :title="title" v-model="open" width="500px" append-to-body>
@@ -107,7 +107,7 @@
         </el-form-item>
         <el-form-item label="状态" prop="status">
           <el-radio-group v-model="form.status">
-            <el-radio v-for="{label,value} in nursing_project_status" :key="value" :label="value" :value="value"
+            <el-radio v-for="{label,value} in nursing_project_status" :key="value" :label="Number(value)" :value="value"
                       size="large">
               {{ label }}
             </el-radio>
@@ -152,7 +152,7 @@ const data = reactive({
   form: {},
   queryParams: {
     pageNum: 1,
-    pageSize: 10,
+    pageSize: 5,
     name: null,
     status: null,
   },
@@ -218,9 +218,13 @@ function handleSelectionChange(selection) {
 
 /** 新增按钮操作 */
 function handleAdd() {
-  reset();
-  open.value = true;
-  title.value = "添加护理项目";
+  reset()
+  open.value = true
+  form.value.status = 1
+  form.value.orderNo = 1
+  form.value.price = 1
+
+  title.value = "添加护理项目"
 }
 
 /** 修改按钮操作 */

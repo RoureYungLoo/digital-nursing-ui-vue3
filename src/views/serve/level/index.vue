@@ -255,6 +255,9 @@ function handleAdd() {
   open.value = true;
   form.value.status = 0
   title.value = "添加护理等级";
+
+  getAllNursingPlanList();
+  
 }
 
 /** 修改按钮操作 */
@@ -333,5 +336,6 @@ onMounted(() => {
   getAllNursingPlanList();
 })
 
-
+getList();
+getAllNursingPlanList();
 </script>
